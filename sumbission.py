@@ -29,7 +29,7 @@ def build_body():
         payload,
         sort_keys=True,
         separators=(",", ":"),
-        ensure_ascii=False
+        ensure_ascii=True
     ).encode("utf-8")
 
 

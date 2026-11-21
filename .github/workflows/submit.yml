@@ -1,0 +1,48 @@
+name: Submit
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Your name"
+        required: true
+        default: "Your name"
+      email:
+        description: "Your email"
+        required: true
+        default: "you@example.com"
+      resume_link:
+        description: "Resume link"
+        required: true
+        default: "https://pdf-or-html-or-linkedin.example.com"
+      repository_link:
+        description: "Repository link"
+        required: true
+        default: "https://link-to-github-or-other-forge.example.com/your/repository"
+      action_run_link:
+        description: "Action run link"
+        required: true
+        default: "https://link-to-github-or-another-forge.example.com/your/repository/actions/runs/run_id"
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Execute submission
+        run: python sumbission/sumbission.py
+        env:
+          SUBMISSION_URL: ${{ secrets.SUBMISSION_URL }}
+          SECRET: ${{ secrets.SECRET }}
+          SUBMISSION_NAME: ${{ github.event.inputs.name }}
+          SUBMISSION_EMAIL: ${{ github.event.inputs.email }}
+          SUBMISSION_RESUME_LINK: ${{ github.event.inputs.resume_link }}
+          SUBMISSION_REPOSITORY_LINK: ${{ github.event.inputs.repository_link }}
+          SUBMISSION_ACTION_RUN_LINK: ${{ github.event.inputs.action_run_link }}

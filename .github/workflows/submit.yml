@@ -37,7 +37,7 @@ jobs:
           python-version: "3.x"
 
       - name: Execute submission
-        run: python sumbission/sumbission.py
+        run: python sumbission.py
         env:
           SUBMISSION_URL: ${{ secrets.SUBMISSION_URL }}
           SECRET: ${{ secrets.SECRET }}
